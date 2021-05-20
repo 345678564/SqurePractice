@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="tmp-p4-mVo">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
@@ -8,25 +8,34 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Square View Controller-->
         <scene sceneID="H61-hf-b1U">
             <objects>
-                <viewController id="tmp-p4-mVo" sceneMemberID="viewController">
+                <viewController id="tmp-p4-mVo" customClass="SquareViewController" customModule="navigationPractice01" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="xDW-Qn-yHv">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="G2S-7G-UUJ">
-                                <rect key="frame" x="30" y="384" width="354" height="128"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="do3-cJ-bYB">
+                                <rect key="frame" x="30" y="74" width="354" height="354"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tn7-79-lQY">
+                                <rect key="frame" x="30" y="478" width="354" height="354"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="xeu-8T-PZq"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="xeu-8T-PZq" firstAttribute="trailing" secondItem="G2S-7G-UUJ" secondAttribute="trailing" constant="30" id="OTM-lQ-zMH"/>
-                            <constraint firstItem="G2S-7G-UUJ" firstAttribute="height" secondItem="xDW-Qn-yHv" secondAttribute="height" id="WFP-T1-ZV5"/>
-                            <constraint firstItem="G2S-7G-UUJ" firstAttribute="leading" secondItem="xeu-8T-PZq" secondAttribute="leading" constant="30" id="py5-Sh-9cb"/>
+                            <constraint firstItem="do3-cJ-bYB" firstAttribute="height" secondItem="xDW-Qn-yHv" secondAttribute="width" constant="-60" id="8Z0-4f-hrz"/>
+                            <constraint firstItem="do3-cJ-bYB" firstAttribute="leading" secondItem="xeu-8T-PZq" secondAttribute="leading" constant="30" id="B5O-cZ-4b2"/>
+                            <constraint firstItem="xeu-8T-PZq" firstAttribute="trailing" secondItem="Tn7-79-lQY" secondAttribute="trailing" constant="30" id="JHD-DD-IV7"/>
+                            <constraint firstItem="Tn7-79-lQY" firstAttribute="leading" secondItem="xeu-8T-PZq" secondAttribute="leading" constant="30" id="LR3-G4-5Vh"/>
+                            <constraint firstItem="xeu-8T-PZq" firstAttribute="bottom" secondItem="Tn7-79-lQY" secondAttribute="bottom" constant="30" id="PUD-fp-wTM"/>
+                            <constraint firstItem="xeu-8T-PZq" firstAttribute="trailing" secondItem="do3-cJ-bYB" secondAttribute="trailing" constant="30" id="Yoc-ra-W0S"/>
+                            <constraint firstItem="Tn7-79-lQY" firstAttribute="height" secondItem="xDW-Qn-yHv" secondAttribute="width" constant="-60" id="Z1Z-VD-8oD"/>
+                            <constraint firstItem="do3-cJ-bYB" firstAttribute="top" secondItem="xeu-8T-PZq" secondAttribute="top" constant="30" id="bkB-iO-rHz"/>
                         </constraints>
                     </view>
                 </viewController>
