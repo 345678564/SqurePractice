@@ -21,12 +21,14 @@ class SquareView: UIView {
             let horizontalOrigin = CGPoint(x: rect.minX, y: rect.minY + 1 / 10 * CGFloat(h) * rect.height)
             let horizontalTo = CGPoint(x: rect.width, y: horizontalOrigin.y)
             
+            let verticalOrigin = CGPoint(x: rect.minX + 1 / 10 * CGFloat(h) * rect.width, y: rect.minY)
+            let verticalTo = CGPoint(x: verticalOrigin.x, y: rect.maxY)
+            
             context.move(to: horizontalOrigin)
             context.addLine(to: horizontalTo)
             
-            print("Origin : ", horizontalOrigin)
-            print("To : ", horizontalTo)
-
+            context.move(to: verticalOrigin)
+            context.addLine(to: verticalTo)
         }
         
 //        context.move(to: CGPoint(x: rect.minX, y: rect.minY))
