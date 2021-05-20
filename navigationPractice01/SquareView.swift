@@ -30,13 +30,24 @@ class SquareView: UIView {
             context.move(to: verticalOrigin)
             context.addLine(to: verticalTo)
         }
-        
-//        context.move(to: CGPoint(x: rect.minX, y: rect.minY))
-//        context.addLine(to: CGPoint(x: rect.maxX, y: rect.minY))
-//
-//        context.move(to: CGPoint(x: 0, y: 0 + 1 / 10 * rect.height))
-//        context.addLine(to: CGPoint(x: rect.width, y: 0 + 1 / 10 * rect.height))
-        
         context.strokePath()
+        
+        
     }
+    private func fillSqureColor(rect:CGRect) {
+        let shapeLayer = CAShapeLayer()
+        let path = UIBezierPath(rect: rect)
+        shapeLayer.path = path.cgPath
+        shapeLayer.fillColor = UIColor.black.cgColor
+        layer.addSublayer(shapeLayer)
+    }
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        guard let location = touches.first?.location(in: self) else {
+            return
+        }
+        print(location)
+        let rect = CGRect(origin: location, size: CGSize(width: 10, height: 10))
+        self.fillSqureColor(rect: rect)
+    }
+    
 }
