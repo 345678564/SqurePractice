@@ -12,10 +12,9 @@ class SquareView: UIView {
         super.draw(rect)
         
         let context = UIGraphicsGetCurrentContext()!
-        context.setStrokeColor(UIColor.red.cgColor)
+        context.setStrokeColor(UIColor.black.cgColor)
         context.setLineWidth(1)
         
-//        let line = 10
         
         for h in 0 ... 9 {
             let horizontalOrigin = CGPoint(x: rect.minX, y: rect.minY + 1 / 10 * CGFloat(h) * rect.height)
@@ -46,8 +45,17 @@ class SquareView: UIView {
             return
         }
         print(location)
-        let rect = CGRect(origin: location, size: CGSize(width: 10, height: 10))
-        self.fillSqureColor(rect: rect)
+
+        let originX = Int(location.x * 10 / bounds.width)
+        let originY = Int(location.y * 10 / bounds.height)
+        
+        print(originX, originY)
+        
+        let rect = CGRect(origin: CGPoint(x: originX, y: originY), size: CGSize(width: bounds.width / 10, height: bounds.height / 10))
+        
+        if rect.contains(location) {
+            self.fillSqureColor(rect: rect)
+        }
     }
     
 }
