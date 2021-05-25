@@ -45,13 +45,17 @@ class SquareView: UIView {
             return
         }
         print(location)
+        print(bounds.width, bounds.height)
 
-        let originX = Int(location.x * 10 / bounds.width)
-        let originY = Int(location.y * 10 / bounds.height)
+        let originX = CGFloat(Int(location.x * 10 / bounds.width))
+        let originY = CGFloat(Int(location.y * 10 / bounds.height))
         
         print(originX, originY)
         
-        let rect = CGRect(origin: CGPoint(x: originX, y: originY), size: CGSize(width: bounds.width / 10, height: bounds.height / 10))
+        let xPoint = originX * bounds.width / 10
+        let yPoint = originY * bounds.height / 10
+        
+        let rect = CGRect(origin: CGPoint(x: xPoint, y: yPoint), size: CGSize(width: bounds.width / 10, height: bounds.height / 10))
         
         if rect.contains(location) {
             self.fillSqureColor(rect: rect)
