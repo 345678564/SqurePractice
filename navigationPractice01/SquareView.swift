@@ -7,15 +7,74 @@
 
 import UIKit
 
-//struct GridCell {
-//    var layer: CAShapeLayer
-//    var row: Int
-//    var col: Int
-//    var hasTouched: Bool
-//}
-//
-//class SquareView: UIView {
-//
+struct GridCell {
+    var layer: CAShapeLayer
+    var row: Int
+    var col: Int
+    var hasTouched: Bool
+}
+
+class SquareView: UIView {
+    
+    var cells: [GridCell] = []
+    
+    override func draw(_ rect: CGRect) {
+        super.draw(rect)
+        
+        layer.borderWidth = 1
+        layer.borderColor = UIColor.black.cgColor
+        
+        let context = UIGraphicsGetCurrentContext()!
+        context.setLineWidth(1)
+        context.setStrokeColor(UIColor.black.cgColor)
+        let diameter = rect.width / 10
+        for i in 1 ..< 10 {
+            context.move(to: CGPoint(x: CGFloat(i) * diameter, y: rect.minY))
+            context.addLine(to: CGPoint(x: CGFloat(i) * diameter, y: rect.maxY))
+            
+            context.move(to: CGPoint(x: rect.minX, y: CGFloat(i) * diameter))
+            context.addLine(to: CGPoint(x: rect.maxX, y: CGFloat(i) * diameter))
+        }
+        context.strokePath()
+    }
+    
+    private func fillRect(_  rect: CGRect, row: Int, col: Int) {
+
+        for i in 0 ..< cells.count {
+            if cells[i].row == row && cells[i].col == col {
+                cells[i].hasTouched = !cells[i].hasTouched
+                cells[i].layer.fillColor = cells[i].hasTouched ? UIColor.blue.cgColor : UIColor.clear.cgColor
+                return
+            }
+        }
+        let path = UIBezierPath(roundedRect: rect, cornerRadius: 0).cgPath
+        let shapeLayer = CAShapeLayer()
+        shapeLayer.path = path
+        shapeLayer.fillColor = UIColor.blue.cgColor
+        layer.addSublayer(shapeLayer)
+        cells.append(GridCell(layer: shapeLayer, row: row, col: col, hasTouched: true))
+        
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let location = touches.first!.location(in: self)
+        
+        let col = Int(location.x / (frame.width / 10))
+        let row = Int(location.y / (frame.width / 10))
+        if col < 0 || col >= 10 || row < 0 || row >= 10 { return }
+        let rect = getTouchedRect(col: col, row: row)
+        fillRect(rect, row: row, col: col)
+    }
+    
+    private func getTouchedRect(col: Int, row: Int) -> CGRect {
+        
+        let originX = CGFloat(col) * (frame.width / 10) + 0.5
+        let originY = CGFloat(row) * (frame.width / 10) + 0.5
+        
+        return CGRect(origin: CGPoint(x: originX, y: originY), size: CGSize(width: frame.width / 10 - 1, height: frame.width / 10 - 1))
+    }
+
+
 //    var cells: [GridCell] = []
 //
 //    override func draw(_ rect: CGRect) {
@@ -91,72 +150,11 @@ import UIKit
 //            fillSqureColor(rect, row: Int(xPoint), col: Int(yPoint))
 //        }
 //    }
+}
+
+//struct GridCell {
+//    var layer: CAShapeLayer
+//    var row: Int
+//    var col: Int
+//    var hasTouched: Bool
 //}
-
-struct GridCell {
-    var layer: CAShapeLayer
-    var row: Int
-    var col: Int
-    var hasTouched: Bool
-}
-
-class GridLayoutView: UIView {
-    var cells: [GridCell] = []
-    
-    override func draw(_ rect: CGRect) {
-        super.draw(rect)
-        
-        layer.borderWidth = 1
-        layer.borderColor = UIColor.black.cgColor
-        
-        let context = UIGraphicsGetCurrentContext()!
-        context.setLineWidth(1)
-        context.setStrokeColor(UIColor.black.cgColor)
-        let diameter = rect.width / 10
-        for i in 1 ..< 10 {
-            context.move(to: CGPoint(x: CGFloat(i) * diameter, y: rect.minY))
-            context.addLine(to: CGPoint(x: CGFloat(i) * diameter, y: rect.maxY))
-            
-            context.move(to: CGPoint(x: rect.minX, y: CGFloat(i) * diameter))
-            context.addLine(to: CGPoint(x: rect.maxX, y: CGFloat(i) * diameter))
-        }
-        context.strokePath()
-    }
-    
-    private func fillRect(_  rect: CGRect, row: Int, col: Int) {
-
-        for i in 0 ..< cells.count {
-            if cells[i].row == row && cells[i].col == col {
-                cells[i].hasTouched = !cells[i].hasTouched
-                cells[i].layer.fillColor = cells[i].hasTouched ? UIColor.blue.cgColor : UIColor.clear.cgColor
-                return
-            }
-        }
-        let path = UIBezierPath(roundedRect: rect, cornerRadius: 0).cgPath
-        let shapeLayer = CAShapeLayer()
-        shapeLayer.path = path
-        shapeLayer.fillColor = UIColor.blue.cgColor
-        layer.addSublayer(shapeLayer)
-        cells.append(GridCell(layer: shapeLayer, row: row, col: col, hasTouched: true))
-        
-    }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        let location = touches.first!.location(in: self)
-        
-        let col = Int(location.x / (frame.width / 10))
-        let row = Int(location.y / (frame.width / 10))
-        if col < 0 || col >= 10 || row < 0 || row >= 10 { return }
-        let rect = getTouchedRect(col: col, row: row)
-        fillRect(rect, row: row, col: col)
-    }
-    
-    private func getTouchedRect(col: Int, row: Int) -> CGRect {
-        
-        let originX = CGFloat(col) * (frame.width / 10) + 0.5
-        let originY = CGFloat(row) * (frame.width / 10) + 0.5
-        
-        return CGRect(origin: CGPoint(x: originX, y: originY), size: CGSize(width: frame.width / 10 - 1, height: frame.width / 10 - 1))
-    }
-}
-
